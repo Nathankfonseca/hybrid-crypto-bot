@@ -1,0 +1,21 @@
+[
+    {
+        "Model": "Logistic Regression",
+        "Accuracy": 0.5129583333333333,
+        "Prob_StdDev": 0.01023336177465816,
+        "PnL": 27.312490479509172,
+        "Random_Accuracy": 0.5008055555555555,
+        "Random_PnL": -29.999126362590555
+    },
+    {
+        "Model": "LightGBM",
+        "Accuracy": 0.5105416666666667,
+        "Prob_StdDev": 0.006722752526606442,
+        "PnL": 21.59068484099782,
+        "Random_Accuracy": 0.4998194444444444,
+        "Random_PnL": -44.00418405945151
+    },
+    {
+        "Model": "Simple MLP",
+        "Accuracy": 0.5139583333333333,
+        "Prob_StdDev": 

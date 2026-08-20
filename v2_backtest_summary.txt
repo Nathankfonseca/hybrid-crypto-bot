@@ -1,0 +1,4 @@
+Saldo Inicial: $1000.00
+Saldo Final: $1033.37
+Total Trades: 3388
+ROI: 3.34%

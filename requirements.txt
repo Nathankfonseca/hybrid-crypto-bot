@@ -1,0 +1,9 @@
+ccxt
+pandas
+numpy
+scikit-learn
+ta
+torch
+python-dotenv
+duckdb
+websockets
