@@ -648,6 +648,8 @@ class HybridBotApp(ctk.CTk):
                     injected = self.offline_delta_fiat + (self.offline_delta_btc * current_price)
                     if abs(injected) > 1.0:
                         self.baseline_btc += (injected / current_price)
+                        self.initial_balance += injected
+                        self.peak_equity += injected
                     delattr(self, 'offline_delta_fiat')
                     delattr(self, 'offline_delta_btc')
                 
@@ -691,6 +693,8 @@ class HybridBotApp(ctk.CTk):
                             
                             if abs(injected) > 1.0:
                                 self.baseline_btc += (injected / self.current_price)
+                                self.initial_balance += injected
+                                self.peak_equity += injected
                                 
                             self.balance = new_bal
                             self.btc_held = new_btc
