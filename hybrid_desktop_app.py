@@ -497,8 +497,8 @@ class HybridBotApp(ctk.CTk):
                                 temp_btc += amount
                                 temp_fiat -= cost
                                 
-                        run_fiat = max(0, temp_fiat)
-                        run_btc = max(0, temp_btc)
+                        run_fiat = temp_fiat
+                        run_btc = temp_btc
                         
                         hist_time, hist_port, hist_cash, hist_alloc, hist_price = [], [], [], [], []
                         trade_idx = 0
