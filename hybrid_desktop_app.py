@@ -766,18 +766,20 @@ class HybridBotApp(ctk.CTk):
                             color_risk = "red"
                             fiat_spend = 0.0
                         else:
-                            total_fiat = self.free_balance + getattr(self, 'acc_buy_fiat', 0.0)
-                            fiat_spend = self.free_balance * alloc
+                            current_alloc = self.free_balance * alloc
+                            total_fiat = current_alloc + getattr(self, 'acc_buy_fiat', 0.0)
                             min_order = 6.0 if self.quote_currency == "BRL" else 5.0
                             
-                            if fiat_spend < min_order:
+                            if total_fiat < min_order:
                                 self.acc_buy_fiat = total_fiat
                                 action = f"Buy Acumulando... ({self.fiat_sym}{total_fiat:.2f})"
                                 color_risk = "orange"
                                 fiat_spend = 0.0
                             else:
                                 self.acc_buy_fiat = 0.0
-                                fiat_spend = total_fiat
+                                # Respeitar o buffer da Bybit para Market Orders
+                                safe_max = self.free_balance * 0.95
+                                fiat_spend = min(total_fiat, safe_max)
                         
                         if fiat_spend > 0:
                             if real_execution:
@@ -826,9 +828,9 @@ class HybridBotApp(ctk.CTk):
                             btc_to_sell = 0.0
                         else:
                             min_order = 6.0 if self.quote_currency == "BRL" else 5.0
-                            btc_to_sell = self.free_btc * alloc
-                            fiat_value = btc_to_sell * self.current_price
-                            total_btc = self.free_btc + self.acc_sell_btc
+                            current_alloc_btc = self.free_btc * alloc
+                            fiat_value = current_alloc_btc * self.current_price
+                            total_btc = current_alloc_btc + getattr(self, 'acc_sell_btc', 0.0)
                             
                             if fiat_value < min_order:
                                 self.acc_sell_btc = total_btc
@@ -837,7 +839,8 @@ class HybridBotApp(ctk.CTk):
                                 btc_to_sell = 0.0
                             else:
                                 self.acc_sell_btc = 0.0
-                                btc_to_sell = total_btc
+                                safe_max_btc = self.free_btc * 0.99
+                                btc_to_sell = min(total_btc, safe_max_btc)
                                 
                         btc_to_sell = round(btc_to_sell, 6)
                         
